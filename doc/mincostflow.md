@@ -26,6 +26,16 @@ func (mcf *MinCostFlow) AddEdge(from, to, capa, cost int) int
 Adds a directed edge with capacity `capa` and cost per unit of flow.
 
 ```go
+func (mcf *MinCostFlow) GetEdge(i int) MCFEdge
+```
+Returns the current state of the edge at index `i`.
+
+```go
+func (mcf *MinCostFlow) Edges() []MCFEdge
+```
+Returns the current state of all edges.
+
+```go
 func (mcf *MinCostFlow) Flow(s, t int) [2]int
 ```
 Computes min-cost flow from `s` to `t`. Returns `[flow, cost]`.

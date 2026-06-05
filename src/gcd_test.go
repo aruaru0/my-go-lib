@@ -62,3 +62,15 @@ func TestLcmInt64(t *testing.T) {
 		t.Errorf("Lcm[int64](%d, %d) = %d, want %d", a, b, got, 24)
 	}
 }
+
+func TestLcmVariadic(t *testing.T) {
+	got := Lcm(2, 3, 4)
+	if got != 12 {
+		t.Errorf("Lcm(2, 3, 4) = %d, want 12", got)
+	}
+
+	got2 := Lcm(10, 15, 20, 30)
+	if got2 != 60 {
+		t.Errorf("Lcm(10, 15, 20, 30) = %d, want 60", got2)
+	}
+}

@@ -26,6 +26,16 @@ func (mcf *MinCostFlow) AddEdge(from, to, capa, cost int) int
 容量 `capa`、単位流量あたりのコスト `cost` の有向辺を追加します。
 
 ```go
+func (mcf *MinCostFlow) GetEdge(i int) MCFEdge
+```
+インデックス `i` の辺の現在の状態を返します。
+
+```go
+func (mcf *MinCostFlow) Edges() []MCFEdge
+```
+すべての辺の現在の状態を返します。
+
+```go
 func (mcf *MinCostFlow) Flow(s, t int) [2]int
 ```
 `s` から `t` への最小費用流を計算します。`[flow, cost]` を返します。

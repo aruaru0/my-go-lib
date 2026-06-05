@@ -65,6 +65,10 @@ pq := mylib.NewPriorityQueue[Task](func(a, b Task) bool {
 
 `less` で定義された最高優先度の要素を削除して返します。キューが空の場合はパニックします。
 
+### `(pq *PriorityQueue[T]) Peek() T`
+
+最高優先度の要素を削除せずに参照します。キューが空の場合はパニックします。
+
 ### `(pq *PriorityQueue[T]) Len() int`
 
 キュー内の要素数を返します。

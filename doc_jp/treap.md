@@ -10,4 +10,5 @@
 - `(*Treap[T]).Find(v T) bool` — 値が存在するかどうかを返します
 - `(*Treap[T]).Min() T` — 最小値を返します
 - `(*Treap[T]).Max() T` — 最大値を返します
+- `(*Treap[T]).Kth(k int) T` — 小さい方から k 番目 (0-indexed) の異なる要素を返します
 - `(*Treap[T]).Len() int` — 異なるキーの数を返します

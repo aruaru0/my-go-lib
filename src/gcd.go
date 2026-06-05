@@ -12,6 +12,10 @@ func Gcd[T Integer](a, b T) T {
 	return Gcd(b, a%b)
 }
 
-func Lcm[T Integer](a, b T) T {
-	return a / Gcd(a, b) * b
+func Lcm[T Integer](a, b T, integers ...T) T {
+	res := a / Gcd(a, b) * b
+	for _, val := range integers {
+		res = res / Gcd(res, val) * val
+	}
+	return res
 }

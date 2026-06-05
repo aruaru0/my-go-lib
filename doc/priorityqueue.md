@@ -66,6 +66,11 @@ Pushes an element onto the heap.
 Removes and returns the element with the highest priority (as defined by `less`).
 Panics if the queue is empty.
 
+### `(pq *PriorityQueue[T]) Peek() T`
+
+Returns the element with the highest priority without removing it.
+Panics if the queue is empty.
+
 ### `(pq *PriorityQueue[T]) Len() int`
 
 Returns the number of elements in the queue.

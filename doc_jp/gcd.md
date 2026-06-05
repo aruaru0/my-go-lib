@@ -14,8 +14,9 @@ import (
 
 func main() {
 	// int
-	fmt.Println(mylib.Gcd(12, 8))  // 4
-	fmt.Println(mylib.Lcm(12, 8)) // 24
+	fmt.Println(mylib.Gcd(12, 8))         // 4
+	fmt.Println(mylib.Lcm(12, 8))        // 24
+	fmt.Println(mylib.Lcm(2, 3, 4))       // 12 (可変引数)
 
 	// int64
 	fmt.Println(mylib.Gcd[int64](48, 18)) // 6
@@ -30,7 +31,7 @@ func main() {
 
 ```go
 func Gcd[T Integer](a, b T) T
-func Lcm[T Integer](a, b T) T
+func Lcm[T Integer](a, b T, integers ...T) T
 ```
 
 `Integer` は `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `uint8`, `uint16`, `uint32`, `uint64`, `uintptr` およびそれらのエイリアスをサポートします。
@@ -38,4 +39,4 @@ func Lcm[T Integer](a, b T) T
 ## アルゴリズム
 
 - **GCD**: ユークリッドの互除法 (再帰)
-- **LCM**: 公式: `a / gcd(a, b) * b`
+- **LCM**: 公式: `a / gcd(a, b) * b`（可変引数が指定された場合は、順次計算を連結します）

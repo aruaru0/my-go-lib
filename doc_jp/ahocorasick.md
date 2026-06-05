@@ -12,6 +12,7 @@
 - `(*AhoCorasick).Build()` — 失敗リンクを構築します (すべてのパターンを追加した後に呼び出します)
 - `(*AhoCorasick).Search(text string) []AhoMatch` — すべてのマッチ (位置, ID) を返します
 - `(*AhoCorasick).MatchCount(text string) int` — マッチの総数を返します
+- `(*AhoCorasick).GetMask(v int) int` — 状態 `v` のパターンマッチマスクを返します
 
 ## 使用例
 

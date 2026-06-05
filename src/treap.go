@@ -38,46 +38,49 @@ func (t *Treap[T]) rotateLeft(n *treapNode[T]) *treapNode[T] {
 	return r
 }
 
-func (t *Treap[T]) insert(n *treapNode[T], v T) *treapNode[T] {
+func (t *Treap[T]) insert(n *treapNode[T], v T) (*treapNode[T], bool) {
 	if n == nil {
-		return &treapNode[T]{value: v, priority: t.randPriority(), count: 1}
+		return &treapNode[T]{value: v, priority: t.randPriority(), count: 1}, true
 	}
 	if !t.less(v, n.value) && !t.less(n.value, v) {
 		n.count++
-		return n
+		return n, false
 	}
+	var inserted bool
 	if t.less(v, n.value) {
-		n.left = t.insert(n.left, v)
+		n.left, inserted = t.insert(n.left, v)
 		if n.left.priority < n.priority {
 			n = t.rotateRight(n)
 		}
 	} else {
-		n.right = t.insert(n.right, v)
+		n.right, inserted = t.insert(n.right, v)
 		if n.right.priority < n.priority {
 			n = t.rotateLeft(n)
 		}
 	}
-	return n
+	return n, inserted
 }
 
-func (t *Treap[T]) delete(n *treapNode[T], v T) *treapNode[T] {
+func (t *Treap[T]) delete(n *treapNode[T], v T) (*treapNode[T], bool) {
 	if n == nil {
-		return nil
+		return nil, false
 	}
 	if t.less(v, n.value) {
-		n.left = t.delete(n.left, v)
-		return n
+		var deleted bool
+		n.left, deleted = t.delete(n.left, v)
+		return n, deleted
 	}
 	if t.less(n.value, v) {
-		n.right = t.delete(n.right, v)
-		return n
+		var deleted bool
+		n.right, deleted = t.delete(n.right, v)
+		return n, deleted
 	}
 	if n.count > 1 {
 		n.count--
-		return n
+		return n, false
 	}
 	if n.left == nil && n.right == nil {
-		return nil
+		return nil, true
 	}
 	if n.left == nil {
 		n = t.rotateLeft(n)
@@ -88,17 +91,25 @@ func (t *Treap[T]) delete(n *treapNode[T], v T) *treapNode[T] {
 	} else {
 		n = t.rotateLeft(n)
 	}
-	return t.delete(n, v)
+	var deleted bool
+	n, deleted = t.delete(n, v)
+	return n, deleted
 }
 
 func (t *Treap[T]) Insert(v T) {
-	t.root = t.insert(t.root, v)
-	t.size++
+	var inserted bool
+	t.root, inserted = t.insert(t.root, v)
+	if inserted {
+		t.size++
+	}
 }
 
 func (t *Treap[T]) Delete(v T) {
-	t.root = t.delete(t.root, v)
-	t.size--
+	var deleted bool
+	t.root, deleted = t.delete(t.root, v)
+	if deleted {
+		t.size--
+	}
 }
 
 func (t *Treap[T]) Find(v T) bool {

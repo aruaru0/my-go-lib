@@ -89,3 +89,57 @@ func TestTreapStringKeys(t *testing.T) {
 		t.Error("Find(b) = false, want true")
 	}
 }
+
+func TestTreapSizeAndKth(t *testing.T) {
+	tr := NewTreap(intLess)
+	if tr.Len() != 0 {
+		t.Errorf("Len() at init = %d, want 0", tr.Len())
+	}
+
+	// 存在しないキーの削除
+	tr.Delete(10)
+	if tr.Len() != 0 {
+		t.Errorf("Len() after delete non-existent = %d, want 0", tr.Len())
+	}
+
+	// 重複挿入時のユニークキー数
+	tr.Insert(5)
+	tr.Insert(5)
+	tr.Insert(3)
+	if tr.Len() != 2 {
+		t.Errorf("Len() after inserts = %d, want 2", tr.Len())
+	}
+
+	// 重複ありの削除
+	tr.Delete(5)
+	if tr.Len() != 2 {
+		t.Errorf("Len() after one delete of duplicate = %d, want 2 (since 5 still exists)", tr.Len())
+	}
+
+	tr.Delete(5)
+	if tr.Len() != 1 {
+		t.Errorf("Len() after deleting all 5 = %d, want 1", tr.Len())
+	}
+
+	// Kthのテスト
+	tr.Insert(1)
+	tr.Insert(7)
+	tr.Insert(5) // 現在: 3, 1, 7, 5 (ソート順: 1, 3, 5, 7)
+	// ユニーク数: 4 (1, 3, 5, 7)
+	if tr.Len() != 4 {
+		t.Errorf("Len() before Kth = %d, want 4", tr.Len())
+	}
+
+	if got := tr.Kth(0); got != 1 {
+		t.Errorf("Kth(0) = %d, want 1", got)
+	}
+	if got := tr.Kth(1); got != 3 {
+		t.Errorf("Kth(1) = %d, want 3", got)
+	}
+	if got := tr.Kth(2); got != 5 {
+		t.Errorf("Kth(2) = %d, want 5", got)
+	}
+	if got := tr.Kth(3); got != 7 {
+		t.Errorf("Kth(3) = %d, want 7", got)
+	}
+}

@@ -10,4 +10,5 @@ Implements a treap (randomized BST) with support for duplicate counts.
 - `(*Treap[T]).Find(v T) bool` — returns whether the value exists
 - `(*Treap[T]).Min() T` — returns the minimum value
 - `(*Treap[T]).Max() T` — returns the maximum value
+- `(*Treap[T]).Kth(k int) T` — returns the k-th smallest distinct element (0-indexed)
 - `(*Treap[T]).Len() int` — returns the number of distinct keys
